@@ -1,5 +1,6 @@
 package cat.itacademy.s04.t02.n01.controllers;
 
+import cat.itacademy.s04.t02.n01.exceptions.FruitNotFoundException;
 import cat.itacademy.s04.t02.n01.model.FruitDTO;
 import cat.itacademy.s04.t02.n01.services.FruitService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,11 +77,10 @@ public class FruitControllerTest {
 	}
 	@Test
 	void getFruitById_ShouldReturnNotFound_WhenIdDoesNotExists() throws Exception {
-		Mockito.when(fruitService.getFruitById(1L)).thenReturn(fruitDTO);
+		Mockito.when(fruitService.getFruitById(2L)).thenThrow(new FruitNotFoundException("Does not exist"));
 		mockMvc.perform(get("/fruits/{id}", 2L))
 				.andExpect(status().isNotFound());
 	}
-
 
 	@Test
 	void updateExistingFruit_ShouldReturnOk_WhenDataIsValid() throws Exception {

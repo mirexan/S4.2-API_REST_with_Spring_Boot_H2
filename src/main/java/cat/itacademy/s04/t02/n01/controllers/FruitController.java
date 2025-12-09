@@ -19,13 +19,17 @@ public class FruitController {
 	}
 
 	@PostMapping
-	public ResponseEntity<FruitDTO> createFruit(@Valid @RequestBody FruitDTO newFruitDTO){
+	public ResponseEntity<FruitDTO> createFruitController(@Valid @RequestBody FruitDTO newFruitDTO){
 		FruitDTO savedFruit = fruitService.addFruit(newFruitDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedFruit);
 	}
 	@GetMapping
-	public ResponseEntity<List<FruitDTO>> getAllFruits(){
+	public ResponseEntity<List<FruitDTO>> getAllFruitsController(){
 		return ResponseEntity.status(HttpStatus.OK).body(fruitService.getAllFruits());
+	}
+	@GetMapping("/{id}")
+	public ResponseEntity<FruitDTO> getFruitByIdController(@PathVariable long id){
+		return ResponseEntity.status(HttpStatus.OK).body(fruitService.getFruitById(id));
 	}
 	@PutMapping
 	public ResponseEntity<FruitDTO> updateFruit( @Valid @RequestBody FruitDTO newFruitDTO){
